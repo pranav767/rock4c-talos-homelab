@@ -1,0 +1,28 @@
+# Talos UserVolumeConfig
+#
+# Creates a dedicated volume mounted at /var/mnt/local-path-provisioner
+# which local-path-provisioner then uses to back PersistentVolumes.
+#
+# WARNING: Talos will FORMAT the disk that matches diskSelector.
+# Make the selector match ONLY the disk you intend to dedicate to storage.
+# The volume label will be u-local-path-provisioner.
+#
+# Apply with:
+#   talosctl --nodes <NODE_IP> patch mc --patch @talos/user-volume.patch.yaml
+#
+# Verify with:
+#   talosctl --nodes <NODE_IP> get volumestatus u-local-path-provisioner
+#   talosctl --nodes <NODE_IP> get mountstatus
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-path-provisioner
+provisioning:
+  # Match your data disk. Examples:
+  #   disk.transport == 'usb'
+  #   disk.transport == 'nvme'
+  #   disk.serial == 'DISK_SERIAL'
+  #   disk.model == 'Ultra'
+  diskSelector:
+    match: disk.transport == 'usb'
+  minSize: 5GB
+  maxSize: 100GB

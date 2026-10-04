@@ -1,0 +1,23 @@
+# --- Secrets / credentials: never commit these ---
+*.env
+.env*
+*oauth*
+*credential*
+*password*
+*secret*
+kubeconfig
+*talosconfig
+*.kubeconfig
+*.key
+*.crt
+*.pem
+*.p12
+id_rsa*
+# --- Local / editor ---
+.DS_Store
+*.swp
+.idea/
+.vscode/
+# --- Rendered / temporary ---
+*.tmp
+*.log
